@@ -245,12 +245,13 @@ export default class PlaylisterModel {
     }
 
     addNewSong() {
-        this.currentList.setSongAt(currentList.length-1, {
+
+        this.currentList.songs.push({
             "title": "Untitled",
             "artist": "Unknown",
             "youTubeId": "dQw4w9WgXcQ"
         })
-        this.view.refreshLists(this.currentList);
+        this.view.refreshPlaylist(this.currentList);
         this.saveLists();
     }
 

@@ -128,7 +128,9 @@ export default class PlaylisterView {
             deleteButton.setAttribute("id", "delete-song-" + i+1);
             deleteButton.setAttribute("class", "song-card-button");
             deleteButton.setAttribute("value", "X");
+            deleteButton.setAttribute("style", "float: right; width:3rem: height: 4.5rem; font-size:3rem");
             itemDiv.appendChild(deleteButton);
+            
 
             // AND PUT THE CARD INTO THE UI
             itemsDiv.appendChild(itemDiv);

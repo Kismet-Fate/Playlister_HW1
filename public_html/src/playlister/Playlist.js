@@ -30,7 +30,7 @@ export default class Playlist {
     setSongs(initSongs) {
         this.songs = initSongs;
     }
-
+/*
     addNewSong() {
         this.songs.push({
             "title": "Untitled",
@@ -40,7 +40,7 @@ export default class Playlist {
         this.view.refreshLists(this.playlists);
         this.saveLists();
     }
-
+*/
     moveSong(oldIndex, newIndex) {
         this.songs.splice(newIndex, 0, this.songs.splice(oldIndex, 1)[0]);
     }
