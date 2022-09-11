@@ -4,7 +4,7 @@
  * This class provides responses for all user interface interactions.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Ailun Yu
  */
 export default class PlaylisterController {
     constructor() { }

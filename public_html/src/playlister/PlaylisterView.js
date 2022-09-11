@@ -5,7 +5,7 @@
  * for loading data into our controls and building other UI controls.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Ailun Yu
  */
 export default class PlaylisterView {
     constructor() {}
@@ -18,6 +18,7 @@ export default class PlaylisterView {
     init() {
         // @todo - ONCE YOU IMPLEMENT THE FOOLPROOF DESIGN STUFF YOU SHOULD PROBABLY
         // START THESE BUTTONS OFF AS DISABLED
+        this.enableButton('add-song-button')
         this.enableButton('undo-button');
         this.enableButton('redo-button');
         this.enableButton('close-button');
@@ -114,8 +115,20 @@ export default class PlaylisterView {
             itemDiv.id = "playlist-card-" + (i + 1);
 
             // PUT THE CONTENT INTO THE CARD
+            let id = document.createTextNode(i+1 + ". ")
             let itemText = document.createTextNode(song.title + " by " + song.artist);
-            itemDiv.appendChild(itemText);
+            itemDiv.appendChild(id);
+            let a = document.createElement('a');
+            a.appendChild(itemText); 
+            a.href = "https://www.youtube.com/watch?v=" + song.youTubeId; 
+            itemDiv.appendChild(a);
+            
+            let deleteButton = document.createElement("input");
+            deleteButton.setAttribute("type", "button");
+            deleteButton.setAttribute("id", "delete-song-" + i+1);
+            deleteButton.setAttribute("class", "song-card-button");
+            deleteButton.setAttribute("value", "X");
+            itemDiv.appendChild(deleteButton);
 
             // AND PUT THE CARD INTO THE UI
             itemsDiv.appendChild(itemDiv);
@@ -196,6 +209,7 @@ export default class PlaylisterView {
     updateToolbarButtons(model) {
         let tps = model.tps;
         if (model.confirmDialogOpen) {
+            this.disableButton("add-song-button")
             this.disableButton("add-list-button");
             this.disableButton("undo-button");
             this.disableButton("redo-button");

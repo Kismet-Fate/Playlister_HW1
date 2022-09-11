@@ -4,7 +4,7 @@
  * This class represents our playlist.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Ailun Yu
  */
 export default class Playlist {
     constructor(initId) {
@@ -29,6 +29,16 @@ export default class Playlist {
 
     setSongs(initSongs) {
         this.songs = initSongs;
+    }
+
+    addNewSong() {
+        this.songs.push({
+            "title": "Untitled",
+            "artist": "Unknown",
+            "youTubeId": "dQw4w9WgXcQ"
+        })
+        this.view.refreshLists(this.playlists);
+        this.saveLists();
     }
 
     moveSong(oldIndex, newIndex) {

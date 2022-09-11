@@ -15,7 +15,7 @@ import MoveSong_Transaction from "./transactions/MoveSong_Transaction.js";
  * inside the view of the page.
  * 
  * @author McKilla Gorilla
- * @author ?
+ * @author Ailun Yu
  */
 export default class PlaylisterModel {
     /*
@@ -241,6 +241,16 @@ export default class PlaylisterModel {
             this.currentList.songs = tempArray;
             this.view.refreshPlaylist(this.currentList);
         }
+        this.saveLists();
+    }
+
+    addNewSong() {
+        this.currentList.setSongAt(currentList.length-1, {
+            "title": "Untitled",
+            "artist": "Unknown",
+            "youTubeId": "dQw4w9WgXcQ"
+        })
+        this.view.refreshLists(this.currentList);
         this.saveLists();
     }
 
