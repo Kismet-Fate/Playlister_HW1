@@ -127,6 +127,12 @@ export default class PlaylisterController {
             // GET THE SELECTED LIST
             this.model.loadList(id);
         }
+        /*
+        document.getElementById("delete-song-" + id).onmousedown = (event) => {
+            console.log("hi");
+            //this.model.deleteSong(id);
+        }
+        */
         // HANDLES DELETING A PLAYLIST
         document.getElementById("delete-list-" + id).onmousedown = (event) => {
             // DON'T PROPOGATE THIS INTERACTION TO LOWER-LEVEL CONTROLS

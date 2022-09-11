@@ -125,7 +125,7 @@ export default class PlaylisterView {
             
             let deleteButton = document.createElement("input");
             deleteButton.setAttribute("type", "button");
-            deleteButton.setAttribute("id", "delete-song-" + i+1);
+            deleteButton.setAttribute("id", "delete-song-" + (i+1));
             deleteButton.setAttribute("class", "song-card-button");
             deleteButton.setAttribute("value", "X");
             deleteButton.setAttribute("style", "float: right; width:3rem: height: 4.5rem; font-size:3rem");

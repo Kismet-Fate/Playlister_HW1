@@ -245,7 +245,6 @@ export default class PlaylisterModel {
     }
 
     addNewSong() {
-
         this.currentList.songs.push({
             "title": "Untitled",
             "artist": "Unknown",
@@ -254,7 +253,11 @@ export default class PlaylisterModel {
         this.view.refreshPlaylist(this.currentList);
         this.saveLists();
     }
-
+    deleteSong(id){
+        this.currentList.songs.splice(id, 1);
+        this.view.refreshPlaylist(this.currentList);
+        this.saveLists();
+    }
     // SIMPLE UNDO/REDO FUNCTIONS, NOTE THESE USE TRANSACTIONS
 
     undo() {
