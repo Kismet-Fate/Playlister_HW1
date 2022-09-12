@@ -76,16 +76,29 @@
         <div class="modal" id="delete-song-modal" data-animation="slideInOutLeft">
             <div class="modal-root" id='verify-delete-song-root'>
                 <div class="modal-north">
-                    Delete playlist?
+                    Delete song?
                 </div>                
                 <div class="modal-center">
                     <div class="modal-center-content">
-                        Are you sure you wish to permanently delete the <span id="delete-list-span"></span> playlist?
+                        Are you sure you wish to permanently remove <span id="delete-song-span"></span> from the playlist?
                     </div>
                 </div>
                 <div class="modal-south">
-                    <input type="button" id="delete-list-confirm-button" class="modal-button" value='Confirm' />
-                    <input type="button" id="delete-list-cancel-button" class="modal-button" value='Cancel' />
+                    <input type="button" id="delete-song-confirm-button" class="modal-button" value='Confirm' />
+                    <input type="button" id="delete-song-cancel-button" class="modal-button" value='Cancel' />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="edit-song-modal" data-animation="slideInOutLeft">
+            <div class="modal-root" id='verify-edit-song-root'>
+                <div class="modal-north">
+                    Edit song
+                </div>                
+                <p> </p>
+                <div class="modal-south">
+                    <input type="button" id="delete-song-confirm-button" class="modal-button" value='Confirm' />
+                    <input type="button" id="delete-song-cancel-button" class="modal-button" value='Cancel' />
                 </div>
             </div>
         </div>

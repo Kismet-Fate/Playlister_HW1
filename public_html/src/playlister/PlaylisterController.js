@@ -94,7 +94,28 @@ export default class PlaylisterController {
             let deleteListModal = document.getElementById("delete-list-modal");
             deleteListModal.classList.remove("is-visible");
         }
+        let deleteSongConfirmButton = document.getElementById("delete-song-confirm-button");
+        deleteSongConfirmButton.onclick = (event) => {
+            let deleteSongId = this.model.songToDeleteIndex;
+            console.log(deleteSongId);
 
+            // ALLOW OTHER INTERACTIONS
+            this.model.toggleConfirmDialogOpen();
+
+            // CLOSE THE MODAL
+            let deleteSongModal = document.getElementById("delete-song-modal");
+            deleteSongModal.classList.remove("is-visible");
+            this.model.deleteSong(deleteSongId+1);
+        }
+        let deleteSongCancelButton = document.getElementById("delete-song-cancel-button");
+        deleteSongCancelButton.onclick = (event) => {
+            // ALLOW OTHER INTERACTIONS
+            this.model.toggleConfirmDialogOpen();
+            
+            // CLOSE THE MODAL
+            let deleteSongModal = document.getElementById("delete-song-modal");
+            deleteSongModal.classList.remove("is-visible");
+        }  
         // RESPOND TO THE USER CLOSING THE DELETE PLAYLIST MODAL
         let deleteListCancelButton = document.getElementById("delete-list-cancel-button");
         deleteListCancelButton.onclick = (event) => {
@@ -128,7 +149,9 @@ export default class PlaylisterController {
             this.model.loadList(id);
             
         }
+        // HANDLES DELETING A SONG
         
+
         // HANDLES DELETING A PLAYLIST
         document.getElementById("delete-list-" + id).onmousedown = (event) => {
             // DON'T PROPOGATE THIS INTERACTION TO LOWER-LEVEL CONTROLS

@@ -75,7 +75,12 @@ export default class PlaylisterModel {
     getSong(index) {
         return this.currentList.songs[index];
     }
-
+    setDeleteSongID(initID) {
+        this.deleteSongID = initID;
+    }
+    getDeleteSongID() {
+        return this.deleteSongID;
+    }
     getDeleteListId() {
         return this.deleteListId;
     }
@@ -154,7 +159,24 @@ export default class PlaylisterModel {
                     let b = j
                     let a = b;
                     document.getElementById("delete-song-" + a).onmousedown = (event) => {
-                        this.deleteSong(a);
+                        
+                        
+                        this.deleteListId = a-1;
+                        
+                        // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
+                        // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
+                        this.songToDeleteIndex = this.deleteListId;
+                        let songName = this.currentList.getSongAt(this.deleteListId).title;
+                        console.log(songName + " " + this.deleteListId);
+                        let deleteSpan = document.getElementById("delete-song-span");
+                        deleteSpan.innerHTML = "";
+                        deleteSpan.appendChild(document.createTextNode(songName));
+                        let deletesongModal = document.getElementById("delete-song-modal");
+
+                        // OPEN UP THE DIALOG
+                        deletesongModal.classList.add("is-visible");
+                        this.toggleConfirmDialogOpen();
+                        //this.deleteSong(a);
                         
                     }
                     
