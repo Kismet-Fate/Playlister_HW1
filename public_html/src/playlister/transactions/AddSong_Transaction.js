@@ -9,17 +9,22 @@ import jsTPS_Transaction from "../../common/jsTPS.js"
  * @author Ailun Yu
  */
 export default class AddSong_Transaction extends jsTPS_Transaction {
-    constructor(initModel, song) {
+    constructor(initModel,index) {
         super();
         this.model = initModel;
-        this.song = song;
+        this.index = index;
+        let n = ({
+            "title": "Untitled",
+            "artist": "Unknown",
+            "youTubeId": "dQw4w9WgXcQ"
+        });
     }
 
     doTransaction() {
-        this.model.addSong(song);
+        this.model.addNewSong();
     }
     
     undoTransaction() {
-        this.model.removeSong(song);
+        this.model.removeSong(this.n, this.index);
     }
 }

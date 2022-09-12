@@ -9,17 +9,19 @@ import jsTPS_Transaction from "../../common/jsTPS.js"
  * @author Ailun Yu
  */
 export default class RemoveSong_Transaction extends jsTPS_Transaction {
-    constructor(initModel, song) {
+    constructor(initModel, song, index) {
         super();
         this.model = initModel;
-        this.song = song;
+        let s = song;
+        this.song = s;
+        this.index = index;
     }
 
     doTransaction() {
-        this.model.removeSong(song);
+        this.model.removeSong(this.song, this.index);
     }
     
     undoTransaction() {
-        this.model.addSong(song);
+        this.model.addSong(this.song, this.index);
     }
 }

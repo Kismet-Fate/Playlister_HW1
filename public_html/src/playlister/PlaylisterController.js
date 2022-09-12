@@ -65,7 +65,8 @@ export default class PlaylisterController {
             this.model.unselectCurrentList();
         }
         document.getElementById("add-song-button").onmousedown = (event) => {
-            this.model.addNewSong();
+            this.model.addAddSongTransaction(this.model.currentList.songs.length);
+            //this.model.addNewSong();
         }
     }
 
@@ -102,15 +103,18 @@ export default class PlaylisterController {
         let deleteSongConfirmButton = document.getElementById("delete-song-confirm-button");
         deleteSongConfirmButton.onclick = (event) => {
             let deleteSongId = this.model.songToDeleteIndex;
-            console.log(deleteSongId);
+            //console.log(deleteSongId);
 
             // ALLOW OTHER INTERACTIONS
-            this.model.toggleConfirmDialogOpen();
+            //this.model.toggleConfirmDialogOpen();
 
             // CLOSE THE MODAL
             let deleteSongModal = document.getElementById("delete-song-modal");
             deleteSongModal.classList.remove("is-visible");
-            this.model.deleteSong(deleteSongId+1);
+            console.log(this.model.songToDeleteIndex);
+            this.model.addRemoveSongTransaction(this.model.currentList.getSongAt(this.model.songToDeleteIndex), this.model.songToDeleteIndex);
+            //this.model.deleteSong(deleteSongId+1);
+            //this.view.refreshPlaylist(this.currentList);
         }
         let deleteSongCancelButton = document.getElementById("delete-song-cancel-button");
         deleteSongCancelButton.onclick = (event) => {
@@ -137,15 +141,20 @@ export default class PlaylisterController {
             // CLOSE THE MODAL
             let editSongModal = document.getElementById("edit-song-modal");
             editSongModal.classList.remove("is-visible");
-            this.model.currentList.songs[this.model.songToDeleteIndex].title = document.getElementById("tid").value;
-            this.model.currentList.songs[this.model.songToDeleteIndex].artist = document.getElementById("atid").value;
-            this.model.currentList.songs[this.model.songToDeleteIndex].youTubeId = document.getElementById("ytid").value;
+            let old = {"title":this.model.currentList.songs[this.model.songToDeleteIndex].title , "artist" : this.model.currentList.songs[this.model.songToDeleteIndex].artist, "youTubeId": this.model.currentList.songs[this.model.songToDeleteIndex].youTubeId};
+            //this.model.currentList.songs[this.model.songToDeleteIndex];
+            let n = {"title":document.getElementById("tid").value , "artist" : document.getElementById("atid").value, "youTubeId": document.getElementById("ytid").value};
+            
             let t = this.model.currentList.id;
+            
+            
             /*
             this.model.unselectCurrentList()
             this.model.loadList(t);
             */
-            this.view.refreshPlaylist(this.model.currentList);
+            this.model.addEditSongTransaction(old, n ,this.model.songToDeleteIndex);
+            //this.view.refreshPlaylist(this.model.currentList);
+            this.model.toggleConfirmDialogOpen();
         }
         let editSongCancelButton = document.getElementById("edit-song-cancel-button");
         editSongCancelButton.onclick = (event) => {

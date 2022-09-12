@@ -1,6 +1,9 @@
 import jsTPS from "../common/jsTPS.js";
 import Playlist from "./Playlist.js";
 import MoveSong_Transaction from "./transactions/MoveSong_Transaction.js";
+import EditSong_Transaction from "./transactions/EditSong_Transaction.js";
+import AddSong_Transaction from "./transactions/AddSong_Transaction.js";
+import RemoveSong_Transaction from "./transactions/RemoveSong_Transaction.js";
 
 /**
  * PlaylisterModel.js
@@ -287,7 +290,20 @@ export default class PlaylisterModel {
     }
 
     // NEXT WE HAVE THE FUNCTIONS THAT ACTUALLY UPDATE THE LOADED LIST
-
+    addSong(song, index){
+        if(this.hasCurrentList()){
+            this.currentList.songs.splice(index, 0, song)
+            this.view.refreshPlaylist(this.currentList);
+        }
+        this.saveLists();
+    }
+    removeSong(song, index){
+        if(this.hasCurrentList()){
+            this.currentList.songs.splice(index, 1)
+            this.view.refreshPlaylist(this.currentList);
+        }
+        this.saveLists();
+    }
     moveSong(fromIndex, toIndex) {
         if (this.hasCurrentList()) {
             let tempArray = this.currentList.songs.filter((song, index) => index !== fromIndex);
@@ -297,7 +313,16 @@ export default class PlaylisterModel {
         }
         this.saveLists();
     }
-
+    editSong(Song1, Song2, index){
+        if (this.hasCurrentList()) {
+            //console.log(Song2);
+            this.currentList.songs[index].title = Song2.title;
+            this.currentList.songs[index].artist = Song2.artist;
+            this.currentList.songs[index].youTubeId = Song2.youTubeId;
+            this.view.refreshPlaylist(this.currentList);
+        }
+        this.saveLists();
+    }
     addNewSong() {
         this.currentList.songs.push({
             "title": "Untitled",
@@ -317,7 +342,7 @@ export default class PlaylisterModel {
         this.currentList.songs.splice(id-1, 1);
         this.view.refreshPlaylist(this.currentList);
         this.saveLists();
-        let t = this.currentList.id;
+        //let t = this.currentList.id;
         //console.log(t);
         //this.unselectCurrentList()
         //this.loadList(t);
@@ -347,18 +372,19 @@ export default class PlaylisterModel {
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }
-    addAddSongTransaction(song) {
-        let transaction = new AddSong_Transaction(this, song);
+    addAddSongTransaction(song, index) {
+        let transaction = new AddSong_Transaction(this, song, index);
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }
-    addEditSongTransaction(song1, song2) {
-        let transaction = new EditSong_Transaction(this, song1, song2);
+    addEditSongTransaction(song1, song2, index) {
+        let transaction = new EditSong_Transaction(this, song1, song2, index);
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }
-    addRemoveSongTransaction(song) {
-        let transaction = new RemoveSong_Transaction(this, song);
+    addRemoveSongTransaction(song, index) {
+        let transaction = new RemoveSong_Transaction(this, song, index);
+        console.log(transaction);
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }
