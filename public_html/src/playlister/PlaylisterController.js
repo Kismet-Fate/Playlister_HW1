@@ -140,6 +140,7 @@ export default class PlaylisterController {
             this.model.currentList.songs[deleteSongId].title = document.getElementById("tid").value;
             this.model.currentList.songs[deleteSongId].artist = document.getElementById("atid").value;
             this.model.currentList.songs[deleteSongId].youTubeId = document.getElementById("ytid").value;
+            console.log();
         }
         let editSongCancelButton = document.getElementById("edit-song-cancel-button");
         editSongCancelButton.onclick = (event) => {
@@ -257,6 +258,26 @@ export default class PlaylisterController {
             // GET THE CARD
             let card = document.getElementById("playlist-card-" + (i + 1));
             
+            document.getElementById("playlist-card-" + (i + 1)).ondblclick = (event) => {
+                this.model.songToDeleteIndex = i-1;
+                document.getElementById("tid").setAttribute("value", this.model.currentList.songs[i].title);
+                document.getElementById("atid").setAttribute("value", this.model.currentList.songs[i].artist);
+                document.getElementById("ytid").setAttribute("value", this.model.currentList.songs[i].youTubeId);
+                // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
+                // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
+
+                
+                //let deleteSpan = document.getElementById("delete-song-span");
+                //deleteSpan.innerHTML = "";
+                //editSpan.appendChild(document.createTextNode(songName));
+                let editsongModal = document.getElementById("edit-song-modal");
+
+                // OPEN UP THE DIALOG
+                editsongModal.classList.add("is-visible");
+                this.toggleConfirmDialogOpen();
+            }
+
+
             // NOW SETUP ALL CARD DRAGGING HANDLERS AS THE USER MAY WISH TO CHANGE
             // THE ORDER OF SONGS IN THE PLAYLIST
 

@@ -18,7 +18,7 @@ export default class PlaylisterView {
     init() {
         // @todo - ONCE YOU IMPLEMENT THE FOOLPROOF DESIGN STUFF YOU SHOULD PROBABLY
         // START THESE BUTTONS OFF AS DISABLED
-        this.disableButton('add-song-button')
+        this.disableButton('add-song-button');
         this.enableButton('undo-button');
         this.enableButton('redo-button');
         this.enableButton('close-button');
@@ -139,13 +139,13 @@ export default class PlaylisterView {
             itemsDiv.appendChild(itemDiv);
 
             document.getElementById("playlist-card-" + (i + 1)).ondblclick = (event) => {
-                this.deleteSongId = a-1;
+                this.songToDeleteIndex = a-1;
                 document.getElementById("tid").setAttribute("value", song.title);
                 document.getElementById("atid").setAttribute("value", song.artist);
                 document.getElementById("ytid").setAttribute("value", song.youTubeId);
                 // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
                 // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
-                this.songToDeleteIndex = this.deleteSongId;
+
                 
                 //let deleteSpan = document.getElementById("delete-song-span");
                 //deleteSpan.innerHTML = "";
