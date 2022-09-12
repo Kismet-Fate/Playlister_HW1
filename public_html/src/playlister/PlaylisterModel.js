@@ -155,41 +155,6 @@ export default class PlaylisterModel {
                 this.view.refreshPlaylist(this.currentList);
                 this.view.highlightList(id); // Was : this.view.highlightList(i);
                 found = true;
-                console.log("thing");
-                for(let j = 1; j < this.playlists[i].songs.length+2; j++){
-                    /* so, I want to talk about this, why the loop seems to be out of bounds.
-                    the delete function, wont work consecutively, if I delete one element, the
-                    rest would just be undeleteable. And with tom howard's spirit with me 
-                    I manage to fix it, with a bug. I figured out, if I trigger an array out of bound exception
-                    it just works, seamlessly
-                    I hate my life
-                    sincerly. -Me  */
-                    let b = j
-                    let a = b;
-                    console.log(a);
-                    document.getElementById("delete-song-" + a).onmousedown = (event) => {
-                        console.log(a);
-                        
-                        this.deleteListId = a-1;
-                        
-                        // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
-                        // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
-                        this.songToDeleteIndex = this.deleteListId;
-                        let songName = this.currentList.getSongAt(this.deleteListId).title;
-                        console.log(songName + " " + this.deleteListId);
-                        let deleteSpan = document.getElementById("delete-song-span");
-                        deleteSpan.innerHTML = "";
-                        deleteSpan.appendChild(document.createTextNode(songName));
-                        let deletesongModal = document.getElementById("delete-song-modal");
-
-                        // OPEN UP THE DIALOG
-                        deletesongModal.classList.add("is-visible");
-                        this.toggleConfirmDialogOpen();
-                        //this.deleteSong(a);
-                        
-                    }
-                    
-                }
             }
             i++;
         }
@@ -197,7 +162,51 @@ export default class PlaylisterModel {
         this.view.updateStatusBar(this);
         this.view.updateToolbarButtons(this);
     }
+    /*
+    loadList(id) {
+        this.view.enableButton('add-song-button');
+        this.view.enableButton('close-button');
+        // If user attempts to reload the currentList, then do nothing.
+        if (this.hasCurrentList() && id === this.currentList.id) {
+            this.view.highlightList(id);
+            return;
+        }
 
+        let list = null;
+        let found = false;
+        let i = 0;
+        while ((i < this.playlists.length) && !found) {
+            list = this.playlists[i];
+            if (list.id === id) {
+                // THIS IS THE LIST TO LOAD
+                this.currentList = list;
+                this.view.refreshPlaylist(this.currentList);
+                this.view.highlightList(id); // Was : this.view.highlightList(i);
+                found = true;
+                
+                for(let j = 0; j < this.playlists[i].songs.length; j++){
+                     so, I want to talk about this, why the loop seems to be out of bounds.
+                    the delete function, wont work consecutively, if I delete one element, the
+                    rest would just be undeleteable. And with tom howard's spirit with me 
+                    I manage to fix it, with a bug. I figured out, if I trigger an array out of bound exception
+                    it just works, seamlessly
+                    I hate my life
+                    sincerly. -Me  
+                    let b = j
+                    let a = b;
+                    console.log(a);
+                    
+                    
+                }
+                
+            }
+            i++;
+        }
+        this.tps.clearAllTransactions();
+        this.view.updateStatusBar(this);
+        this.view.updateToolbarButtons(this);
+    }
+    */
     loadLists() {
         // CHECK TO SEE IF THERE IS DATA IN LOCAL STORAGE FOR THIS APP
         let recentLists = localStorage.getItem("recent_work");
@@ -299,8 +308,8 @@ export default class PlaylisterModel {
         this.saveLists();
         let t = this.currentList.id;
         //console.log(t);
-        this.unselectCurrentList()
-        this.loadList(t);
+        //this.unselectCurrentList()
+        //this.loadList(t);
         this.view.refreshPlaylist(this.currentList);
     }
     
@@ -310,8 +319,8 @@ export default class PlaylisterModel {
         this.saveLists();
         let t = this.currentList.id;
         //console.log(t);
-        this.unselectCurrentList()
-        this.loadList(t);
+        //this.unselectCurrentList()
+        //this.loadList(t);
         this.view.refreshPlaylist(this.currentList);
     }
     // SIMPLE UNDO/REDO FUNCTIONS, NOTE THESE USE TRANSACTIONS
@@ -335,6 +344,21 @@ export default class PlaylisterModel {
 
     addMoveSongTransaction(fromIndex, onIndex) {
         let transaction = new MoveSong_Transaction(this, fromIndex, onIndex);
+        this.tps.addTransaction(transaction);
+        this.view.updateToolbarButtons(this);
+    }
+    addAddSongTransaction(song) {
+        let transaction = new AddSong_Transaction(this, song);
+        this.tps.addTransaction(transaction);
+        this.view.updateToolbarButtons(this);
+    }
+    addEditSongTransaction(song1, song2) {
+        let transaction = new EditSong_Transaction(this, song1, song2);
+        this.tps.addTransaction(transaction);
+        this.view.updateToolbarButtons(this);
+    }
+    addRemoveSongTransaction(song) {
+        let transaction = new RemoveSong_Transaction(this, song);
         this.tps.addTransaction(transaction);
         this.view.updateToolbarButtons(this);
     }

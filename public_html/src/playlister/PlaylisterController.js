@@ -89,10 +89,12 @@ export default class PlaylisterController {
 
             // ALLOW OTHER INTERACTIONS
             this.model.toggleConfirmDialogOpen();
+            
             if( this.model.currentList == null||this.model.currentList.id == deleteListId){
                 this.view.disableButton('add-song-button');
                 this.view.disableButton('close-button');
             }
+            
             // CLOSE THE MODAL
             let deleteListModal = document.getElementById("delete-list-modal");
             deleteListModal.classList.remove("is-visible");
@@ -139,9 +141,11 @@ export default class PlaylisterController {
             this.model.currentList.songs[this.model.songToDeleteIndex].artist = document.getElementById("atid").value;
             this.model.currentList.songs[this.model.songToDeleteIndex].youTubeId = document.getElementById("ytid").value;
             let t = this.model.currentList.id;
+            /*
             this.model.unselectCurrentList()
             this.model.loadList(t);
-            this.view.refreshPlaylist(this.currentList);
+            */
+            this.view.refreshPlaylist(this.model.currentList);
         }
         let editSongCancelButton = document.getElementById("edit-song-cancel-button");
         editSongCancelButton.onclick = (event) => {
@@ -258,7 +262,46 @@ export default class PlaylisterController {
         for (let i = 0; i < this.model.getPlaylistSize(); i++) {
             // GET THE CARD
             let card = document.getElementById("playlist-card-" + (i + 1));
-            
+            let song = this.model.getSong(i);
+            document.getElementById("playlist-card-" + (i + 1)).ondblclick = (event) => {
+                this.model.songToDeleteIndex = i;
+                let editsongModal = document.getElementById("edit-song-modal");
+                editsongModal.classList.add("is-visible");
+                document.getElementById("tid").value = song.title;
+                document.getElementById("atid").value =  song.artist;
+                document.getElementById("ytid").value = song.youTubeId;
+                // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
+                // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
+
+                
+                //let deleteSpan = document.getElementById("delete-song-span");
+                //deleteSpan.innerHTML = "";
+                //editSpan.appendChild(document.createTextNode(songName));
+                
+                this.model.toggleConfirmDialogOpen();
+            }
+            document.getElementById("delete-song-" + (i+1)).onmousedown = (event) => {
+                        
+                        
+                
+                
+                // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
+                // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
+                this.model.songToDeleteIndex = i;
+                let songName = this.model.currentList.getSongAt(this.model.songToDeleteIndex).title;
+                console.log(songName + " " + this.deleteListId);
+                let deleteSpan = document.getElementById("delete-song-span");
+                deleteSpan.innerHTML = "";
+                deleteSpan.appendChild(document.createTextNode(songName));
+                let deletesongModal = document.getElementById("delete-song-modal");
+
+                // OPEN UP THE DIALOG
+                deletesongModal.classList.add("is-visible");
+                this.toggleConfirmDialogOpen();
+                //this.deleteSong(a);
+                
+            }
+            /*
             document.getElementById("playlist-card-" + (i + 1)).ondblclick = (event) => {
                 this.model.songToDeleteIndex = i;
                 document.getElementById("tid").setAttribute("value", this.model.currentList.songs[i].title);
@@ -281,7 +324,7 @@ export default class PlaylisterController {
                 this.model.loadList(t);
                 this.view.refreshPlaylist(this.currentList);
             }
-
+            */
 
             // NOW SETUP ALL CARD DRAGGING HANDLERS AS THE USER MAY WISH TO CHANGE
             // THE ORDER OF SONGS IN THE PLAYLIST
