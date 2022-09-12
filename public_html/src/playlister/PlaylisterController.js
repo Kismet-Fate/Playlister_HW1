@@ -297,7 +297,7 @@ export default class PlaylisterController {
 
                 // OPEN UP THE DIALOG
                 deletesongModal.classList.add("is-visible");
-                this.toggleConfirmDialogOpen();
+                //this.toggleConfirmDialogOpen();
                 //this.deleteSong(a);
                 
             }
