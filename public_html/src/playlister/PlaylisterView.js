@@ -18,7 +18,7 @@ export default class PlaylisterView {
     init() {
         // @todo - ONCE YOU IMPLEMENT THE FOOLPROOF DESIGN STUFF YOU SHOULD PROBABLY
         // START THESE BUTTONS OFF AS DISABLED
-        this.enableButton('add-song-button')
+        this.disableButton('add-song-button')
         this.enableButton('undo-button');
         this.enableButton('redo-button');
         this.enableButton('close-button');
@@ -103,6 +103,7 @@ export default class PlaylisterView {
         this function rebuilds all the song cards for the playlist.
     */
     refreshPlaylist(playlist) {
+        this.enableButton('add-song-button')
         // CLEAR OUT THE OLD SONG CARDS
         let itemsDiv = document.getElementById("playlist-cards");
         itemsDiv.innerHTML = "";
@@ -171,6 +172,7 @@ export default class PlaylisterView {
         // REMOVE THE ITEMS        
         let itemsDiv = document.getElementById("playlist-cards");
         itemsDiv.innerHTML = "";
+        
     }
 
     /*
@@ -237,6 +239,13 @@ export default class PlaylisterView {
             this.disableButton("undo-button");
             this.disableButton("redo-button");
             this.disableButton("close-button");
+        }
+        else{
+            this.enableButton("add-song-button")
+            this.enableButton("add-list-button");
+            this.enableButton("undo-button");
+            this.enableButton("redo-button");
+            this.enableButton("close-button");
         }
     }
 

@@ -200,6 +200,7 @@ export default class PlaylisterController {
         }
         // FOR RENAMING THE LIST NAME
         document.getElementById("list-card-text-" + id).ondblclick = (event) => {
+            this.view.disableButton('add-list-button');
             let text = document.getElementById("list-card-text-" + id)
             // CLEAR THE TEXT
             text.innerHTML = "";

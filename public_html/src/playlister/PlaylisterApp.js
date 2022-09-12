@@ -20,7 +20,7 @@ export class PlaylisterApp {
 
         // THE MODEL NEEDS THE VIEW TO NOTIFY IT EVERY TIME DATA CHANGES
         this.model.setView(this.view);
-
+        this.controller.view = this.view;
         // THE VIEW NEEDS THE CONTROLLER TO HOOK UP HANDLERS TO ITS CONTROLS
         this.view.setController(this.controller);
 

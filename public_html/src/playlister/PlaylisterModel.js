@@ -136,6 +136,8 @@ export default class PlaylisterModel {
     }
 
     loadList(id) {
+        this.view.enableButton('add-song-button');
+        this.view.enableButton('close-button');
         // If user attempts to reload the currentList, then do nothing.
         if (this.hasCurrentList() && id === this.currentList.id) {
             this.view.highlightList(id);
@@ -237,6 +239,8 @@ export default class PlaylisterModel {
             this.tps.clearAllTransactions();
             this.view.updateToolbarButtons(this);
         }
+        this.view.disableButton('add-song-button');
+        this.view.disableButton('close-button');
     }
 
     renameCurrentList(initName, id) {
