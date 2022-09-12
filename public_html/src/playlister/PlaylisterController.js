@@ -266,7 +266,7 @@ export default class PlaylisterController {
 
             // CHANGE THE CONTROL TO AN EDITABLE TEXT FIELD
             text.appendChild(textInput);
-            this.model.refreshToolbar();
+            //this.model.refreshToolbar();
 
             // SPECIFY HANDLERS FOR THE TEXT FIELD
             textInput.ondblclick = (event) => {
