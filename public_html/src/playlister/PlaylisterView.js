@@ -136,6 +136,25 @@ export default class PlaylisterView {
 
             // AND PUT THE CARD INTO THE UI
             itemsDiv.appendChild(itemDiv);
+
+            document.getElementById("playlist-card-" + (i + 1)).ondblclick = (event) => {
+                this.deleteSongId = a-1;
+                document.getElementById("tid").setAttribute("value", song.title);
+                document.getElementById("atid").setAttribute("value", song.artist);
+                document.getElementById("ytid").setAttribute("value", song.youTubeId);
+                // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
+                // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
+                this.songToDeleteIndex = this.deleteSongId;
+                
+                //let deleteSpan = document.getElementById("delete-song-span");
+                //deleteSpan.innerHTML = "";
+                //editSpan.appendChild(document.createTextNode(songName));
+                let editsongModal = document.getElementById("edit-song-modal");
+
+                // OPEN UP THE DIALOG
+                editsongModal.classList.add("is-visible");
+                this.toggleConfirmDialogOpen();
+            }
         }
         // NOW THAT THE CONTROLS EXIST WE CAN REGISTER EVENT
         // HANDLERS FOR THEM

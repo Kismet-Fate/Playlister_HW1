@@ -155,9 +155,10 @@ export default class PlaylisterModel {
                 found = true;
                 //console.log(this.playlists[list.id].songs.length);
                 for(let j = 1; j < this.playlists[list.id].songs.length+1; j++){
-                    //console.log(j);
+                    
                     let b = j
                     let a = b;
+                    console.log(a);
                     document.getElementById("delete-song-" + a).onmousedown = (event) => {
                         
                         

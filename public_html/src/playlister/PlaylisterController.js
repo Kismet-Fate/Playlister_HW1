@@ -125,7 +125,31 @@ export default class PlaylisterController {
             // CLOSE THE MODAL
             let deleteListModal = document.getElementById("delete-list-modal");
             deleteListModal.classList.remove("is-visible");
-        }        
+        }      
+        let editSongConfirmButton = document.getElementById("edit-song-confirm-button");
+        editSongConfirmButton.onclick = (event) => {
+            let deleteSongId = this.model.songToDeleteIndex;
+            console.log(deleteSongId);
+
+            // ALLOW OTHER INTERACTIONS
+            this.model.toggleConfirmDialogOpen();
+
+            // CLOSE THE MODAL
+            let editSongModal = document.getElementById("edit-song-modal");
+            editSongModal.classList.remove("is-visible");
+            this.model.currentList.songs[deleteSongId].title = document.getElementById("tid").value;
+            this.model.currentList.songs[deleteSongId].artist = document.getElementById("atid").value;
+            this.model.currentList.songs[deleteSongId].youTubeId = document.getElementById("ytid").value;
+        }
+        let editSongCancelButton = document.getElementById("edit-song-cancel-button");
+        editSongCancelButton.onclick = (event) => {
+            // ALLOW OTHER INTERACTIONS
+            this.model.toggleConfirmDialogOpen();
+            
+            // CLOSE THE MODAL
+            let editSongModal = document.getElementById("edit-song-modal");
+            editSongModal.classList.remove("is-visible");
+        }    
     }
 
     /*
