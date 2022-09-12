@@ -154,8 +154,14 @@ export default class PlaylisterModel {
                 this.view.highlightList(id); // Was : this.view.highlightList(i);
                 found = true;
                 //console.log(this.playlists[list.id].songs.length);
-                for(let j = 1; j < this.playlists[list.id].songs.length+1; j++){
-                    
+                for(let j = 1; j < this.playlists[i].songs.length+2; j++){
+                    /* so, I want to talk about this, why the loop seems to be out of bounds.
+                    the delete function, wont work consecutively, if I delete one element, the
+                    rest would just be undeleteable. And with tom howard's spirit with me 
+                    I manage to fix it, with a bug. I figured out, if I trigger an array out of bound exception
+                    it just works, seamlessly
+                    I hate my life
+                    sincerly. -Me  */
                     let b = j
                     let a = b;
                     console.log(a);
