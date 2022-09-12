@@ -139,7 +139,7 @@ export default class PlaylisterView {
             itemsDiv.appendChild(itemDiv);
 
             document.getElementById("playlist-card-" + (i + 1)).ondblclick = (event) => {
-                this.songToDeleteIndex = a-1;
+                this.model.songToDeleteIndex = a-1;
                 document.getElementById("tid").setAttribute("value", song.title);
                 document.getElementById("atid").setAttribute("value", song.artist);
                 document.getElementById("ytid").setAttribute("value", song.youTubeId);

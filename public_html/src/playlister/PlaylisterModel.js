@@ -155,7 +155,7 @@ export default class PlaylisterModel {
                 this.view.refreshPlaylist(this.currentList);
                 this.view.highlightList(id); // Was : this.view.highlightList(i);
                 found = true;
-                //console.log(this.playlists[list.id].songs.length);
+                console.log("thing");
                 for(let j = 1; j < this.playlists[i].songs.length+2; j++){
                     /* so, I want to talk about this, why the loop seems to be out of bounds.
                     the delete function, wont work consecutively, if I delete one element, the
@@ -168,7 +168,7 @@ export default class PlaylisterModel {
                     let a = b;
                     console.log(a);
                     document.getElementById("delete-song-" + a).onmousedown = (event) => {
-                        
+                        console.log(a);
                         
                         this.deleteListId = a-1;
                         

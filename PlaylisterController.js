@@ -131,6 +131,12 @@ export default class PlaylisterController {
         }      
         let editSongConfirmButton = document.getElementById("edit-song-confirm-button");
         editSongConfirmButton.onclick = (event) => {
+            //let deleteSongId = this.model.songToDeleteIndex;
+            //console.log(deleteSongId);
+
+            // ALLOW OTHER INTERACTIONS
+            //this.model.toggleConfirmDialogOpen();
+            //this.model.toggleConfirmDialogOpen();
             console.log(this.model.songToDeleteIndex);
             // CLOSE THE MODAL
             let editSongModal = document.getElementById("edit-song-modal");
@@ -138,6 +144,8 @@ export default class PlaylisterController {
             this.model.currentList.songs[this.model.songToDeleteIndex].title = document.getElementById("tid").value;
             this.model.currentList.songs[this.model.songToDeleteIndex].artist = document.getElementById("atid").value;
             this.model.currentList.songs[this.model.songToDeleteIndex].youTubeId = document.getElementById("ytid").value;
+            //console.log(this.model.currentList.songs);
+
             let t = this.model.currentList.id;
             this.model.unselectCurrentList()
             this.model.loadList(t);
@@ -146,7 +154,7 @@ export default class PlaylisterController {
         let editSongCancelButton = document.getElementById("edit-song-cancel-button");
         editSongCancelButton.onclick = (event) => {
             // ALLOW OTHER INTERACTIONS
-            this.model.toggleConfirmDialogOpen();
+            //this.model.toggleConfirmDialogOpen();
             
             // CLOSE THE MODAL
             let editSongModal = document.getElementById("edit-song-modal");
@@ -202,7 +210,7 @@ export default class PlaylisterController {
         }
         // FOR RENAMING THE LIST NAME
         document.getElementById("list-card-text-" + id).ondblclick = (event) => {
-            this.view.disableButton('add-list-button');
+            this.model.view.disableButton('add-list-button');
             let text = document.getElementById("list-card-text-" + id)
             // CLEAR THE TEXT
             text.innerHTML = "";
@@ -255,7 +263,7 @@ export default class PlaylisterController {
         
         // SETUP THE HANDLERS FOR ALL SONG CARDS, WHICH ALL GET DONE
         // AT ONCE EVERY TIME DATA CHANGES, SINCE IT GETS REBUILT EACH TIME
-        for (let i = 0; i < this.model.getPlaylistSize(); i++) {
+        for (let i = 0; i < this.model.getPlaylistSize()+1; i++) {
             // GET THE CARD
             let card = document.getElementById("playlist-card-" + (i + 1));
             
@@ -266,7 +274,7 @@ export default class PlaylisterController {
                 document.getElementById("ytid").setAttribute("value", this.model.currentList.songs[i].youTubeId);
                 // VERIFY THAT THE USER REALLY WANTS TO DELETE THE PLAYLIST
                 // THE CODE BELOW OPENS UP THE LIST DELETE VERIFICATION DIALOG
-
+                
                 
                 //let deleteSpan = document.getElementById("delete-song-span");
                 //deleteSpan.innerHTML = "";
@@ -276,10 +284,12 @@ export default class PlaylisterController {
                 // OPEN UP THE DIALOG
                 editsongModal.classList.add("is-visible");
                 //this.toggleConfirmDialogOpen();
+                
                 let t = this.model.currentList.id;
                 this.model.unselectCurrentList()
                 this.model.loadList(t);
                 this.view.refreshPlaylist(this.currentList);
+                
             }
 
 
