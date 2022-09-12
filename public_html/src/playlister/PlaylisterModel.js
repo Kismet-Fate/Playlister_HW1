@@ -148,6 +148,16 @@ export default class PlaylisterModel {
                 this.view.refreshPlaylist(this.currentList);
                 this.view.highlightList(id); // Was : this.view.highlightList(i);
                 found = true;
+                //console.log(this.playlists[list.id].songs.length);
+                for(let j = 1; j < this.playlists[list.id].songs.length+1; j++){
+                    //console.log(j);
+                    let a = j;
+                    let t = document.getElementById("delete-song-" + a);
+                    t.onmousedown = (event) => {
+                        this.deleteSong(a);
+                    }
+                    
+                }
             }
             i++;
         }
@@ -170,6 +180,7 @@ export default class PlaylisterModel {
                 let songs = [];
                 for (let j = 0; j < listData.songs.length; j++) {
                     songs[j] = listData.songs[j];
+                    
                 }
                 this.addNewList(listData.name, songs);
             }
@@ -253,13 +264,15 @@ export default class PlaylisterModel {
         this.view.refreshPlaylist(this.currentList);
         this.saveLists();
     }
+    
     deleteSong(id){
-        this.currentList.songs.splice(id, 1);
+        this.currentList.songs.splice(id-1, 1);
         this.view.refreshPlaylist(this.currentList);
         this.saveLists();
+        
     }
     // SIMPLE UNDO/REDO FUNCTIONS, NOTE THESE USE TRANSACTIONS
-
+    
     undo() {
         if (this.tps.hasTransactionToUndo()) {
             this.tps.undoTransaction();

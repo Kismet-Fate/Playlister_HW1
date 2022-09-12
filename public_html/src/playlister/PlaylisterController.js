@@ -126,13 +126,9 @@ export default class PlaylisterController {
 
             // GET THE SELECTED LIST
             this.model.loadList(id);
+            
         }
-        /*
-        document.getElementById("delete-song-" + id).onmousedown = (event) => {
-            console.log("hi");
-            //this.model.deleteSong(id);
-        }
-        */
+        
         // HANDLES DELETING A PLAYLIST
         document.getElementById("delete-list-" + id).onmousedown = (event) => {
             // DON'T PROPOGATE THIS INTERACTION TO LOWER-LEVEL CONTROLS
@@ -202,7 +198,11 @@ export default class PlaylisterController {
         not known, it can be any number of songs. It's as many cards as there
         are songs in the playlist, and users can add and remove songs.
     */
+
+
+    
     registerItemHandlers() {
+        
         // SETUP THE HANDLERS FOR ALL SONG CARDS, WHICH ALL GET DONE
         // AT ONCE EVERY TIME DATA CHANGES, SINCE IT GETS REBUILT EACH TIME
         for (let i = 0; i < this.model.getPlaylistSize(); i++) {

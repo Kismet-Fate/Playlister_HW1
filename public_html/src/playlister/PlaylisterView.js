@@ -52,6 +52,7 @@ export default class PlaylisterView {
             let list = lists[i];
             this.appendListToView(list);
         }
+        
     }
 
     /*
@@ -92,6 +93,7 @@ export default class PlaylisterView {
 
         // SETUP THE HANDLER FOR WHEN SOMEONE MOUSE CLICKS ON OUR LIST
         this.controller.registerListSelectHandlers(newList.id);
+        
     }
 
     /*
