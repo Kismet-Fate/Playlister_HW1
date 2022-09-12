@@ -66,6 +66,18 @@ export default class PlaylisterController {
         }
         document.getElementById("add-song-button").onmousedown = (event) => {
             this.model.addAddSongTransaction(this.model.currentList.songs.length);
+            if(!this.model.tps.hasTransactionToUndo()){
+                this.model.view.disableButton('undo-button');
+            }
+            else{
+                this.model.view.enableButton('undo-button');
+            }
+            if(!this.model.tps.hasTransactionToRedo()){
+                this.model.view.disableButton('redo-button');
+            }
+            else{
+                this.model.view.enableButton('redo-button');
+            }
             //this.model.addNewSong();
         }
     }
@@ -99,6 +111,7 @@ export default class PlaylisterController {
             // CLOSE THE MODAL
             let deleteListModal = document.getElementById("delete-list-modal");
             deleteListModal.classList.remove("is-visible");
+            
         }
         let deleteSongConfirmButton = document.getElementById("delete-song-confirm-button");
         deleteSongConfirmButton.onclick = (event) => {
@@ -115,6 +128,18 @@ export default class PlaylisterController {
             this.model.addRemoveSongTransaction(this.model.currentList.getSongAt(this.model.songToDeleteIndex), this.model.songToDeleteIndex);
             //this.model.deleteSong(deleteSongId+1);
             //this.view.refreshPlaylist(this.currentList);
+            if(!this.model.tps.hasTransactionToUndo()){
+                this.model.view.disableButton('undo-button');
+            }
+            else{
+                this.model.view.enableButton('undo-button');
+            }
+            if(!this.model.tps.hasTransactionToRedo()){
+                this.model.view.disableButton('redo-button');
+            }
+            else{
+                this.model.view.enableButton('redo-button');
+            }
         }
         let deleteSongCancelButton = document.getElementById("delete-song-cancel-button");
         deleteSongCancelButton.onclick = (event) => {
@@ -155,6 +180,18 @@ export default class PlaylisterController {
             this.model.addEditSongTransaction(old, n ,this.model.songToDeleteIndex);
             //this.view.refreshPlaylist(this.model.currentList);
             this.model.toggleConfirmDialogOpen();
+            if(!this.model.tps.hasTransactionToUndo()){
+                this.model.view.disableButton('undo-button');
+            }
+            else{
+                this.model.view.enableButton('undo-button');
+            }
+            if(!this.model.tps.hasTransactionToRedo()){
+                this.model.view.disableButton('redo-button');
+            }
+            else{
+                this.model.view.enableButton('redo-button');
+            }
         }
         let editSongCancelButton = document.getElementById("edit-song-cancel-button");
         editSongCancelButton.onclick = (event) => {
@@ -370,6 +407,18 @@ export default class PlaylisterController {
                     && !isNaN(fromIndex) 
                     && !isNaN(toIndex)) {
                     this.model.addMoveSongTransaction(fromIndex, toIndex);
+                }
+                if(!this.model.tps.hasTransactionToUndo()){
+                    this.model.view.disableButton('undo-button');
+                }
+                else{
+                    this.model.view.enableButton('undo-button');
+                }
+                if(!this.model.tps.hasTransactionToRedo()){
+                    this.model.view.disableButton('redo-button');
+                }
+                else{
+                    this.model.view.enableButton('redo-button');
                 }
             }
         }

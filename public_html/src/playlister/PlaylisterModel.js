@@ -141,6 +141,7 @@ export default class PlaylisterModel {
     loadList(id) {
         this.view.enableButton('add-song-button');
         this.view.enableButton('close-button');
+        
         // If user attempts to reload the currentList, then do nothing.
         if (this.hasCurrentList() && id === this.currentList.id) {
             this.view.highlightList(id);
@@ -164,6 +165,18 @@ export default class PlaylisterModel {
         this.tps.clearAllTransactions();
         this.view.updateStatusBar(this);
         this.view.updateToolbarButtons(this);
+        if(!this.tps.hasTransactionToUndo()){
+            this.view.disableButton('undo-button');
+        }
+        else{
+            this.view.enableButton('undo-button');
+        }
+        if(!this.tps.hasTransactionToRedo()){
+            this.view.disableButton('redo-button');
+        }
+        else{
+            this.view.enableButton('redo-button');
+        }
     }
     /*
     loadList(id) {
@@ -253,6 +266,9 @@ export default class PlaylisterModel {
         }
         this.view.disableButton('add-song-button');
         this.view.disableButton('close-button');
+
+        this.view.disableButton('undo-button');
+        this.view.disableButton('redo-button');
     }
 
     renameCurrentList(initName, id) {
@@ -355,12 +371,24 @@ export default class PlaylisterModel {
             this.tps.undoTransaction();
             this.view.updateToolbarButtons(this);
         }
+        if(!this.tps.hasTransactionToUndo()){
+            this.view.disableButton('undo-button');
+        }
+        else{
+            this.view.enableButton('undo-button');
+        }
     }
 
     redo() {
         if (this.tps.hasTransactionToRedo()) {
             this.tps.doTransaction();
             this.view.updateToolbarButtons(this);
+        }
+        if(!this.tps.hasTransactionToRedo()){
+            this.view.disableButton('redo-button');
+        }
+        else{
+            this.view.enableButton('redo-button');
         }
     }
 
